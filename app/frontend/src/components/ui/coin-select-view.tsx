@@ -1,6 +1,5 @@
 import type { CoinTypes } from '@/types';
 import { useState } from 'react';
-import { coinList } from '@/data/static/coin-list';
 import { SearchIcon } from '@/components/icons/search';
 import { useModal } from '@/components/modal-views/context';
 

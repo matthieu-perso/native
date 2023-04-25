@@ -3,7 +3,6 @@ import os, glob
 from logic.llm.model_manager import ModelManager
 from transformers import pipeline
 from langchain.llms import HuggingFacePipeline
-from langchain import PromptTemplate, LLMChain
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
@@ -28,8 +27,6 @@ def load_default_model():
         pmodel = "bert-base-uncased"
         get_model_manager().load_model(pmodel)
         get_model_manager().load_embeddings()
-
-
     else:
         # Handle the case where there are no models
         print("No models found in cache directory. Loading default model...")

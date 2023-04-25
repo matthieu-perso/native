@@ -6,7 +6,7 @@ from transformers import AutoModel, AutoTokenizer
 def download_llama_model():
     subprocess.call(['pip', 'install', 'pyllamacpp'])
     from langchain.llms import GPT4All
-    return GPT4All(model="./dependencies/models_cache/models--Gpt4All/gpt4all-lora-quantized-ggml.bin")
+    return GPT4All(model="./dependencies/models_cache/Gpt4All/gpt4all-lora-quantized-ggml.bin")
 
 def download_gpt4all_model():
     subprocess.call(['pip', 'install', 'llama-cpp-python'])

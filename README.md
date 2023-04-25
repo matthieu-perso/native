@@ -97,7 +97,7 @@ Please refer to this link for comprehensive guidelines on how to make contributi
 
 
 
-# 🍕 Community
+# Community
 
 Got Questions or want to help ? Join the conversation in our [Discord](https://discord.gg/ZKE4X3qk).  
 

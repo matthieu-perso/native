@@ -41,11 +41,10 @@ export default function DownloadedModelList({
 
   return (
     <div className="relative mb-3 overflow-hidden rounded-lg bg-white shadow-card transition-all last:mb-0 hover:shadow-large dark:bg-light-dark">
-<div
-  className="relative grid h-auto cursor-pointer grid-cols-4 items-center gap-3 py-4 sm:h-20 sm:grid-cols-6 sm:gap-6 sm:py-0"
-  onClick={() => setIsExpand(!isExpand)}
->
-
+      <div
+        className="relative grid h-auto cursor-pointer grid-cols-4 items-center gap-3 py-4 sm:h-20 sm:grid-cols-6 sm:gap-6 sm:py-0"
+        onClick={() => setIsExpand(!isExpand)}
+      >
         <div className="truncate px-4 text-xs font-medium uppercase tracking-wider text-black dark:text-white sm:px-8 sm:text-sm">
           <span className="mb-1 block font-medium text-gray-600 dark:text-gray-400 sm:hidden">
             Name
