@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "backend-native"
+version = "0.1.0"
+description = "Backend for Native"
+authors = ["Matthieu <matthieu@native.site>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "backend_native"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pyllamacpp = "^1.0.6"
+llama-cpp-python = "^0.1.34"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

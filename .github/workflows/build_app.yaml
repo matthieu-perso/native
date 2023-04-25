@@ -1,0 +1,83 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Release Tauri App
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install frontend dependencies
+        run: |
+          cd app/frontend
+          npm ci
+
+      - name: Build frontend
+        run: |
+          cd app/frontend
+          npm run build
+
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          components: clippy, rustfmt
+          override: true
+
+      - name: Install Tauri CLI
+        run: cargo install tauri-cli --version '^1.0.0-beta'
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+          architecture: "x64"
+
+
+      - name: Install backend dependencies and PyInstaller
+        run: |
+          cd app/backend
+          poetry install
+          poetry add pyinstaller
+
+      - name: Build backend binary
+        run: |
+          cd app/backend
+          poetry run pyinstaller --onefile your_backend_module.py
+          mv dist/your_backend_module ../src-tauri/backend${{ (matrix.os == 'windows-latest') && '.exe' || '' }}
+
+      - name: Build Tauri app
+        run: |
+          cd app/src-tauri
+          tauri build --verbose
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ runner.os }}-app
+          path: |
+            app/src-tauri/target/release/bundle/${{ matrix.os }}
+            app/src-tauri/backend${{ (matrix.os == 'windows-latest') && '.exe' || '' }}
